@@ -11,7 +11,6 @@ import org.springframework.r2dbc.connection.init.ResourceDatabasePopulator;
 import org.springframework.web.reactive.config.EnableWebFlux;
 
 @EnableWebFlux
-//@EnableR2dbcRepositories
 @SpringBootApplication
 public class ReactiveApplication {
 
@@ -21,7 +20,6 @@ public class ReactiveApplication {
 		ConnectionFactoryInitializer initializer = new ConnectionFactoryInitializer();
 		initializer.setConnectionFactory(connectionFactory);
 		initializer.setDatabasePopulator(new ResourceDatabasePopulator(new ClassPathResource("schema.sql")));
-		//initializer.setDatabasePopulator(new ResourceDatabasePopulator(new ClassPathResource("data.sql")));
 
 		return initializer;
 	}

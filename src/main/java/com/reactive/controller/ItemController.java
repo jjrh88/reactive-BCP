@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 public class ItemController {
@@ -28,15 +30,15 @@ public class ItemController {
     }
 
 
-    @GetMapping("/find")
+    @GetMapping("/item/find")
     @ResponseStatus(HttpStatus.OK)
     public Flux<Item> findItemsWithAverageRatingLowerThan(@RequestParam(required = false) Double rating) {
         return itemService.findItemsWithAverageRatingLowerThan(rating);
     }
 
-    @GetMapping("/title")
+    @GetMapping("/item/titles")
     @ResponseStatus(HttpStatus.OK)
-    public Flux<String> getAll(@RequestParam(required = false) Double rating) {
+    public List<String> getTitles(@RequestParam(required = false) Double rating) {
         return itemService.getTitles(rating);
     }
 

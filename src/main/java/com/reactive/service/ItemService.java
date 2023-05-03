@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Slf4j
 @Service
 public class ItemService {
@@ -28,22 +31,14 @@ public class ItemService {
     }
 
     public Flux<Item> findItemsWithAverageRatingLowerThan(Double rating) {
-        return reviewRepository.findItemsWithAverageRatingLowerThan(rating);
+        return itemRepository.findItemsWithAverageRatingLowerThan(rating);
     }
 
-    public Flux<String> getTitles(Double rating) {
-        return reviewRepository.getTitles(rating);
+    public List<String> getTitles(Double rating) {
+        List<String> stringList = new ArrayList<>();
+        Flux<String> titles = itemRepository.getTitles(rating);
+        titles.collectList().subscribe(stringList::addAll);
+        return stringList;
     }
-
-
-    /*public Mono<Item> findById(Long id) {
-        return itemRepository
-                .findById(id)
-                .doOnNext(p -> log.info("Item with id " + p.getId()));
-    }
-
-    public Mono<Void> deleteById(Long id) {
-        return itemRepository.deleteById(id).doOnNext(c -> log.info("Item with id {} deleted", id));
-    }*/
 
 }
